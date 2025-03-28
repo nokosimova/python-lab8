@@ -36,7 +36,6 @@
    source env/bin/activate
    pip install -r req.txt
 
-   ```bash
    #чтобы сгенерировать python-методы из написанных proto-спецификаций, запускалась команда (можно пропустить этот пункт тк файлы уже есть в репозитории)
    python -m grpc_tools.protoc \
        --proto_path=./protobufs \
@@ -44,7 +43,7 @@
        --grpc_python_out=. \
        protobufs/app.proto
    ```
-   ```
+
 Приложение запустится и будет доступно по локально на порту 8000
    ```bash
    python -m app.server
