@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package glossary;
+
+import public "google/protobuf/empty.proto";
+
+message Word {
+  int64 id = 1;
+  string name = 2;
+  string definition = 3;
+}
+
+message CreateWordRequest {
+  Word word = 1;
+}
+
+message DeleteWordRequest {
+  int64 id = 1;
+}
+
+message GetWordRequest {
+  string name = 1;
+}
+
+message UpdateWordRequest {
+  Word word = 1;
+}
+
+message WordResponse {
+  Word word = 1;
+}
+
+message ListResponse {
+  repeated Word words = 1;
+}
+
+service GlossaryService {
+  rpc CreateWord (CreateWordRequest) returns (WordResponse);
+
+  rpc GetWord (GetWordRequest) returns (WordResponse);
+
+  rpc DeleteWord (DeleteWordRequest) returns (google.protobuf.Empty);
+
+  rpc UpdateWord (UpdateWordRequest) returns (WordResponse);
+
+  rpc ListAllWords (google.protobuf.Empty) returns (ListResponse);
+}
