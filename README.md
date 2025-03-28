@@ -48,9 +48,47 @@
    ```bash
    python -m app.server
    ```
-Запустить тесты, которые проверяют все методы сервиса
+
+## Как тестировать?
+
+1) Запустить тесты, которые проверяют все методы сервиса
    ```bash
    python -m app.test
+   ```
+
+2) Внучную черз утилиту командной строки grpcurl. Примеры запросов:
+   ```bash
+   grpcurl --plaintext localhost:8000 list #список сервисов
+   grpcurl --plaintext localhost:8000 list glossary.GlossaryService
+
+   #создать термин
+   grpcurl --plaintext\
+   -d '{"word":{"name":"python","definition":"Язык программирования"}}' \
+   localhost:8000 \
+   glossary.GlossaryService/CreateWord
+
+   #обновить определение термин
+   grpcurl --plaintext\
+   -d '{"word":{"name":"python","definition":"Язык Программирования"}}' \
+   localhost:8000 \
+   glossary.GlossaryService/UpdateWord
+
+   #показать термин по имени
+   grpcurl --plaintext\
+   -d '{"name":"python"}' \
+   localhost:8000 \
+   glossary.GlossaryService/GetWord
+
+   #список всех терминов
+   grpcurl --plaintext \ 
+   localhost:8000 \
+   glossary.GlossaryService/ListAllWords
+
+   #удалить термин 
+   grpcurl --plaintext\ 
+   -d '{"id":1}' \
+   localhost:8000 \                     
+   glossary.GlossaryService/DeleteWord
    ```
 
 Eсть возможность поднять приложение в Docker-контейнере. Для этого запустить команды из той же главное директории команду:
